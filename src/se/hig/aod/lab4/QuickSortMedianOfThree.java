@@ -58,12 +58,14 @@ public class QuickSortMedianOfThree {
 		boolean isFinished = false;
 		
 		while(!isFinished) {
-			if(j - 1 < 0)
+			// if satser till för dubbletter
+			if(j - 1 <= 0)
 				j = 1;
-			if(i + 1 >= arr.length - 1)
+			if(i + 1 > arr.length - 1)
 				i = arr.length - 1;
 			
 			while(arr[++i].compareTo(pivot) < 0);
+			
 			while(pivot.compareTo(arr[--j]) < 0);
 			
 			if(i >= j) {
