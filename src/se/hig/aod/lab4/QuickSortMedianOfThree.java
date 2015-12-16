@@ -21,7 +21,8 @@ public class QuickSortMedianOfThree {
 			quickSortWorker(arr, low, pivot - 1);
 			quickSortWorker(arr, pivot + 1, high);
 		}
-		System.out.println(Arrays.toString(arr));
+		manualSort(arr, low, high);
+		System.out.println(Arrays.toString(arr));		
 	}
 	
 	private static <T extends Comparable<? super T>> int partition(T[] arr, int low, int high) {
@@ -57,10 +58,13 @@ public class QuickSortMedianOfThree {
 		boolean isFinished = false;
 		
 		while(!isFinished) {
-			while(arr[++i].compareTo(pivot) < 0) 
-				;
-			while(pivot.compareTo(arr[--j]) < 0)
-				;
+			if(j - 1 < 0)
+				j = 1;
+			if(i + 1 >= arr.length - 1)
+				i = arr.length - 1;
+			
+			while(arr[++i].compareTo(pivot) < 0);
+			while(pivot.compareTo(arr[--j]) < 0);
 			
 			if(i >= j) {
 				isFinished = true;
@@ -69,7 +73,8 @@ public class QuickSortMedianOfThree {
 			swap(arr, i, j);
 		}
 		swap(arr, i, high - 1);
-		System.out.println(Arrays.toString(arr));				
+		System.out.println(Arrays.toString(arr));	
+		
 		return i;
 	}
 	
@@ -90,5 +95,25 @@ public class QuickSortMedianOfThree {
 			swap(arr, middle, right);
 
 		return middle;
+	}
+	
+	private static<T extends Comparable<? super T>> void manualSort(T[] arr, int left, int right) {
+		int size = right - left + 1;
+		
+		if(size <= 1)
+			return;
+		if(size == 2) {
+			if(arr[left].compareTo(arr[right]) >= 0) 
+				swap(arr, left, right);
+			return;
+		} else {
+			if(arr[left].compareTo(arr[right - 1]) >= 0)
+				swap(arr, left, right - 1);
+			if (arr[left].compareTo(arr[right]) >= 0)
+		        swap(arr, left, right);
+		      if (arr[right - 1].compareTo(arr[right]) >= 0)
+		        swap(arr, right - 1, right);
+			
+		}
 	}
 }
