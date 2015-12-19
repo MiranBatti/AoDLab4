@@ -2,14 +2,28 @@ package se.hig.aod.lab4;
 
 import java.lang.Comparable;
 import java.util.Arrays;
-import java.util.Random;
 
+/**
+ * 
+ * @author Miran Batt
+ * @author Fredrik Lindorf
+ * 
+ * @version 2015-12-17
+ *
+ */
 public class QuickSortMedianOfThree {
 	
+	private static int state = 0; // används för att se varje steg i sorteringen.
+	
 	public static <T extends Comparable<? super T>> void sort(T[] arr) {
+		if (arr == null || arr.length == 0) {
+		      return;
+		      }
+		
 		int low = 0;
 		int high = arr.length - 1;
-		System.out.println("State 0" + Arrays.toString(arr));
+		state = 0;
+//		callPrinter(arr);
 		
 		quickSortWorker(arr, low, high);
 	}
@@ -22,35 +36,13 @@ public class QuickSortMedianOfThree {
 			quickSortWorker(arr, pivot + 1, high);
 		}
 		manualSort(arr, low, high);
-		System.out.println(Arrays.toString(arr));		
 	}
 	
-	private static <T extends Comparable<? super T>> int partition(T[] arr, int low, int high) {
-		Random rnd = new Random();
-		int pivotIndex = rnd.nextInt(arr.length - 1);
-		T pivot = arr[pivotIndex];
-		
-		swap(arr, pivotIndex, high);
-		
-		pivotIndex = high;
-		int i = low - 1;
-		
-		for (int j = low; j < high - 1; j++) {
-			int retval = arr[j].compareTo(pivot);
-			if(arr[j].compareTo(pivot) <= 0) {
-				i++;
-				swap(arr, i, j);
-			}
-		}
-		swap(arr, i+1, pivotIndex);
-		
-		return i + 1;
-	}
-	
-	private static<T extends Comparable<? super T>> int partition2(T[] arr, int low, int high) {
+	private static<T extends Comparable<? super T>> int partition2(T[] arr, int low, int high) { // Hoare baserat partition
 		int middle = medianOfThree(arr, low, high);
 		
 		swap(arr, middle, high - 1);
+//		callPrinter(arr);
 		T pivot = arr[high - 1];
 		
 		int i = low;
@@ -73,9 +65,10 @@ public class QuickSortMedianOfThree {
 				break;
 			}
 			swap(arr, i, j);
+//			callPrinter(arr);
 		}
 		swap(arr, i, high - 1);
-		System.out.println(Arrays.toString(arr));	
+//		callPrinter(arr);
 		
 		return i;
 	}
@@ -99,7 +92,7 @@ public class QuickSortMedianOfThree {
 		return middle;
 	}
 	
-	private static<T extends Comparable<? super T>> void manualSort(T[] arr, int left, int right) {
+	private static<T extends Comparable<? super T>> void manualSort(T[] arr, int left, int right) { // kod delvist taget från: http://www.java2s.com/Tutorial/Java/0140__Collections/Quicksortwithmedianofthreepartitioning.htm
 		int size = right - left + 1;
 		
 		if(size <= 1)
@@ -115,7 +108,11 @@ public class QuickSortMedianOfThree {
 		        swap(arr, left, right);
 		      if (arr[right - 1].compareTo(arr[right]) >= 0)
 		        swap(arr, right - 1, right);
-			
 		}
+//		callPrinter(arr);
+	}
+	
+	private static<T extends Comparable<? super T>> void callPrinter(T[] arr) {
+		System.out.println(state++ + ": " + Arrays.toString(arr));
 	}
 }
