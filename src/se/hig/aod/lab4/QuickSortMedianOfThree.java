@@ -92,7 +92,7 @@ public class QuickSortMedianOfThree {
 		return middle;
 	}
 	
-	private static<T extends Comparable<? super T>> void manualSort(T[] arr, int left, int right) { // kod delvist taget från: http://www.java2s.com/Tutorial/Java/0140__Collections/Quicksortwithmedianofthreepartitioning.htm
+	private static<T extends Comparable<? super T>> void manualSort(T[] arr, int left, int right) { // kod taget från: http://www.java2s.com/Tutorial/Java/0140__Collections/Quicksortwithmedianofthreepartitioning.htm
 		int size = right - left + 1;
 		
 		if(size <= 1)
