@@ -17,8 +17,9 @@ public class QuickSortMedianOfThree {
 	
 	public static <T extends Comparable<? super T>> void sort(T[] arr) {
 		if (arr == null || arr.length == 0) {
-		      return;
-		      }
+			System.out.println("Array is empty. Cannot sort.");
+		    return;
+		    }
 		
 		int low = 0;
 		int high = arr.length - 1;
@@ -30,7 +31,7 @@ public class QuickSortMedianOfThree {
 	
 	private static <T extends Comparable<? super T>> void quickSortWorker(T[] arr, int low, int high) {
 		if(low < high) {
-			int pivot = partition2(arr, low, high);
+			int pivot = partition(arr, low, high);
 			
 			quickSortWorker(arr, low, pivot - 1);
 			quickSortWorker(arr, pivot + 1, high);
@@ -38,7 +39,7 @@ public class QuickSortMedianOfThree {
 		manualSort(arr, low, high);
 	}
 	
-	private static<T extends Comparable<? super T>> int partition2(T[] arr, int low, int high) { // Hoare baserat partition
+	private static<T extends Comparable<? super T>> int partition(T[] arr, int low, int high) { // Hoare baserat partition
 		int middle = medianOfThree(arr, low, high);
 		
 		swap(arr, middle, high - 1);
@@ -73,10 +74,10 @@ public class QuickSortMedianOfThree {
 		return i;
 	}
 	
-	private static<T extends Comparable<? super T>> void swap(T[] arr, int pivotIndex, int right) {
-		T tmp = arr[pivotIndex];
-		arr[pivotIndex] = arr[right];
-		arr[right] = tmp;
+	private static<T extends Comparable<? super T>> void swap(T[] arr, int i, int j) {
+		T tmp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = tmp;
 	}
 	
 	private static<T extends Comparable<? super T>> int medianOfThree(T[] arr, int left, int right) {
